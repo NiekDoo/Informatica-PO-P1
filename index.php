@@ -1,29 +1,50 @@
-<?php 
-    // Declareer variabelen
-    $servername = "localhost";
-    $username = "root";
-    $password = "usbw";
-    $database = "aanmelding";
 
-    // Maak verbinding
-    $conn = new mysqli($servername, $username, $password, $database);
-    
-    // Controleer of verbinding is gelukt
-    if ($conn->connect_error) {
-        die("Connectie mislukt: " . $conn->connect_error);
-    }
-    echo "Connectie gemaakt";
+    <!doctype html>
+    <html>
+      <head>
+        <title>Table with database</title>
+      <head>
+      <body>
+        <table>
+          <tr>
+            <th>Naam</th>
+            <th>Mail</th>
+            <th>Aanwezig</th>
+            <th>aantal</th>
+          </tr>
+          <?php
+              // Declareer variabelen
+              $servername = "localhost";
+              $username = "root";
+              $password = "usbw";
+              $database = "aanmelding";
 
-    $sql = "INSERT INTO aanmelding (naam, mail, aanwezig, aantal) VALUES ('Jan', 'jan@gomail.com', 1, 22)";
+              // Maak verbinding
+              $conn = new mysqli($servername, $username, $password, $database);
 
-        if ($conn->query($sql) === TRUE) {
-            echo "Jan is succesvol toegevoegd.";
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        }
+              // Controleer of verbinding is gelukt
+              if ($conn->connect_error) {
+                  die("Connectie mislukt: " . $conn->connect_error);
+              }
+              echo "Connectie gemaakt";
 
+              // Laat tabel zien
+              $sql = "SELECT naam, mail, aanwezig, aantal FROM Aanmelding";
+              $result = $conn->query($sql);
 
+                if ($result->num_rows > 0) {
+                  // output data of each row
+                  while($row = $result->fetch_assoc()) {
+                    echo "<tr><td>" . $row["naam"]. "</td><td>" . $row["mail"] . "</td><td>" . $row["aanwezig"] . "</td><td>" . $row["aantal"] . "<br>";
+                  }
+                } else {
+                  echo "0 results";
+                }
 
-    // Verbinding verbreken aan het eind van de code
-    $conn->close();
-?>
+              //Sluit verbinding
+              $conn->close();
+              ?>
+
+        </table>
+      </body>
+    </html>
