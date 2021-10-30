@@ -1,47 +1,57 @@
-<?php 
-    // Declareer variabelen
-    $servername = "localhost";
-    $username = "root";
-    $password = "usbw";
-    $database = "aanmelding";
+    <!doctype html>
+    <html>
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="widt=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <title>Aanmeldingen</title>
+      <head>
+      <body>
+        <table class="table table-striped table-bordered">
+          <tr>
+            <th>Naam</th>
+            <th>Mail</th>
+            <th>Aanwezig</th>
+            <th>aantal</th>
+          </tr>
+          <?php
+              // Declareer variabelen
+              $servername = "localhost";
+              $username = "root";
+              $password = "usbw";
+              $database = "aanmelding";
 
-    // Maak verbinding
-    $conn = new mysqli($servername, $username, $password, $database);
-    
-    // Controleer of verbinding is gelukt
-    if ($conn->connect_error) {
-        die("Connectie mislukt: " . $conn->connect_error);
-    }
-    echo "Connectie gemaakt";
+              // Maak verbinding
+              $conn = new mysqli($servername, $username, $password, $database);
+
+              // Controleer of verbinding is gelukt
+              if ($conn->connect_error) {
+                  die("Connectie mislukt: " . $conn->connect_error);
+              }
+              echo "Connectie gemaakt";
+
+              // Laat tabel zien
+              $sql = "SELECT naam, mail, aanwezig, aantal FROM Aanmelding";
+              $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                  // output data of each row
+                  while($row = $result->fetch_assoc()) {
+                    echo "<tr><td>" . $row["naam"]. "</td><td>" . $row["mail"] . "</td><td>" . $row["aanwezig"] . "</td><td>" . $row["aantal"] . "<br>";
+                  }
+                } else {
+                  echo "0 results";
+                }
+
+              //Sluit verbinding
+              $conn->close();
+              ?>
+
+        </table>
+        <input type="button" value="Nieuwe aanmelding" onClick="document.location.href='/aanmelden.php'" />          
 
 
-    // Gegevens toevoegen zonder variabelen
-    $sql = "INSERT INTO aanmelding (naam, mail, aanwezig, aantal) VALUES ('Jan', 'jan@gomail.com', 1, 22)";
-
-        if ($conn->query($sql) === TRUE) {
-            echo "Jan is succesvol toegevoegd.";
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        }
-
-
-
-    // Gegevens toevoegen met variabelen
-    $stmt = $conn->prepare("INSERT INTO aanmelding (naam, mail) VALUES (?, ?)");
-    $stmt -> bind_param("ss", $naam, $mail);
-
-    // hier ga je pas de variabelen toewijzen en de query uitvoeren, dat kan je meer keren doen.
-
-    $naam = "Mijn Naam";
-    $mail = "email@mijnnaam.nl";
-    $stmt->execute();
-
-    // let op dat je zowel de prepare als de connectie sluit
-    $stmt->close();
-    $conn->close();
-
-
-
-    // Verbinding verbreken aan het eind van de code
-    // $conn->close();
-?>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+      </body>
+    </html>
