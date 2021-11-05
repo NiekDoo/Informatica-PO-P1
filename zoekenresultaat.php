@@ -11,7 +11,8 @@
             <th>Naam</th>
             <th>Email</th>
             <th>Aanwezig</th>
-            <th>aantal</th>
+            <th>Aantal</th>
+            <th>Acties</th>
           </tr>
 
       <?php
@@ -21,7 +22,6 @@
       if ($conn->connect_error) {
           die("Connectie mislukt: " . $conn->connect_error);
       }
-      echo "Connectie gemaakt";
 
       // zoekformulier verwerken
       if (isset($_POST["query"])) {
@@ -63,7 +63,12 @@
           if ($result->num_rows > 0) {
             // output data of each row
             while($row = $result->fetch_assoc()) {
-              echo "<tr><td>" . $row["naam"]. "</td><td>" . $row["email"] . "</td><td>" . $row["aanwezig"] . "</td><td>" . $row["aantal"] . "<br>";
+              echo "<tr><td>" . $row["naam"]. "</td>
+                    <td>" . $row["email"] . "</td>
+                    <td>" . $row["aanwezig"] . "</td>
+                    <td>" . $row["aantal"] . "</td>" . 
+                    "<td><a href='delete.php?id=".$row['email']."'>verwijderen</a></td>" . 
+                    "<br>";
             }
           } else {
             echo "Er zijn geen overeenkomsten gevonden";
