@@ -1,58 +1,84 @@
-<html>
-    <header>
-
-    </header>
-    <body>
-        <input type="button" value="Tabel met namen" onClick="document.location.href='/index.php'" />
-        <?php
-            // Declareer variabelen
-            $servername = "localhost";
-            $username = "root";
-            $password = "usbw";
-            $database = "aanmelding";
-
-            // Maak verbinding
-            $conn = new mysqli($servername, $username, $password, $database);
-
-            // Controleer of verbinding is gelukt
-            if ($conn->connect_error) {
-                die("Connectie mislukt: " . $conn->connect_error);
-            }
-            echo "Connectie gemaakt";
+    <!doctype html>
+    <html>
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="widt=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <title>Aanmeldingen</title>
+      <head>
+      <body>
+        <table class="table table-striped table-bordered">
+          <tr>
+            <th>Naam</th>
+            <th>Email</th>
+            <th>Aanwezig</th>
+            <th>aantal</th>
+          </tr>
+          <?php
+              require('databaseconnectie.php');
 
 
-            $sql = "SELECT * \n"
-            . "FROM aanmelding LIMIT 0, 30 ";
-            echo $sql;
+              // Controleer of verbinding is gelukt
+              if ($conn->connect_error) {
+                  die("Connectie mislukt: " . $conn->connect_error);
+              }
+              echo "Connectie gemaakt";
 
             /*
-            $sql = "INSERT INTO aanmelding (naam, mail, aanwezig, aantal) VALUES ('Jan', 'jan@gomail.com', 1, 22)";
+            // Formulier ontvangen
 
-                if ($conn->query($sql) === TRUE) {
-                    echo "Jan is succesvol toegevoegd.";
-                } else {
-                    echo "Error: " . $sql . "<br>" . $conn->error;
-                }
+            if (isset($_POST["submit"])) {
+                if (isset($_POST["aanwezig"])) {
+                  $aanwezig = "ja"; 
+              } else { 
+                  $aanwezig = "nee"; 
+              }
+              
+              //CONTROLEREN OF ER OOK IETS IN DE POST ZIT????
+              
+              
+              $stmt = $conn->prepare("INSERT INTO aanmelding (naam, email, aanwezig, aantal) VALUES (?, ?, ?, ?)");
+              $stmt -> bind_param("ssss", $naam, $email, $aanwezig, $aantal);
+              
+              // hier ga je pas de variabelen toewijzen en de query uitvoeren, dat kan je meer keren doen.
+              
+              $naam = $_POST["naam"]; 
+              $email = $_POST["email"]; 
+              $aanwezig = $_POST["aanwezig"]; 
+              $aantal = $_POST["aantal"]; 
+              
+              $stmt->execute();
+
+              $stmt->close(); 
+
+            } else {
+              echo "Er zit niks in de POST"; 
+            }
             */
+          
 
-            // Gegevens toevoegen met variabelen
-            $stmt = $conn->prepare("INSERT INTO aanmelding (naam, mail) VALUES (?, ?)");
-            $stmt -> bind_param("ss", $naam, $mail);
+              // Laat tabel zien
+              $sql = "SELECT naam, email, aanwezig, aantal FROM aanmelding";
+              $result = $conn->query($sql);
 
-            // hier ga je pas de variabelen toewijzen en de query uitvoeren, dat kan je meer keren doen.
+                if ($result->num_rows > 0) {
+                  // output data of each row
+                  while($row = $result->fetch_assoc()) {
+                    echo "<tr><td>" . $row["naam"]. "</td><td>" . $row["email"] . "</td><td>" . $row["aanwezig"] . "</td><td>" . $row["aantal"] . "<br>";
+                  }
+                } else {
+                  echo "0 results";
+                }
 
-            $naam = "Mijn Naam";
-            $mail = "email@mijnnaam.nl";
-            $stmt->execute();
+              //Sluit verbinding
+              $conn->close();
+              ?>
 
-            // let op dat je zowel de prepare als de connectie sluit
-            $stmt->close();
-            $conn->close();
-
+        </table>
+        <input type="button" value="Nieuwe aanmelding" onClick="document.location.href='/aanmelden.php'" />          
 
 
-
-            // Verbinding verbreken aan het eind van de code
-        ?>
-    </body>
-</html>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+      </body>
+    </html>
