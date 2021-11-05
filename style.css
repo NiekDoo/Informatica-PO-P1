@@ -1,0 +1,24 @@
+a {
+    color: black;
+}
+
+h1 {
+    padding: 1%;
+}
+
+input {
+    margin: 4px;
+}
+
+.tabel_waarde {
+    left: 0px;
+}
+
+.formgroup {
+    margin: 1%;
+}
+
+#aanmelden {
+    right: 0px;
+    position:absolute;
+}

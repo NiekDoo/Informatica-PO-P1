@@ -4,9 +4,19 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="widt=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link href ="style.css" rel="stylesheet"></link>
         <title>Aanmeldingen</title>
       <head>
       <body>
+        <h1>Aanmelden</h1>
+
+        <form class="form-group" action="zoekenresultaat.php" method="POST">
+          <input class="form-control" type="text" name="query" />
+          <input type="submit" value="Zoeken" />
+        </form>
+
+        <input type="button" class="btn btn-outline-primary" value="Nieuwe aanmelding" onClick="document.location.href='/aanmelden.php'" id="aanmelden"/>
+        
         <table class="table table-striped table-bordered">
           <tr>
             <th>Naam</th>
@@ -15,10 +25,7 @@
             <th>Aantal</th>
             <th>Acties</th>
           </tr>
-          <form class="form-group" action="zoekenresultaat.php" method="POST">
-	          <input class="form-control" type="text" name="query" />
-          	<input type="submit" value="Zoeken" />
-          </form>
+
 
 
           <?php
@@ -50,7 +57,7 @@
                     <td>" . $row["email"] . "</td>
                     <td>" . $row["aanwezig"] . "</td>
                     <td>" . $row["aantal"] . "</td>" . 
-                    "<td><a href='delete.php?id=".$row['email']."'>verwijderen</a></td>" . 
+                    "<td><a href='delete.php?id=".$row['email']."'>[verwijderen]</a></td>" .
                     "<br>";
                   }
                 } else {
@@ -62,7 +69,6 @@
               ?>
 
         </table>
-        <input type="button" value="Nieuwe aanmelding" onClick="document.location.href='/aanmelden.php'" />          
 
 
         
