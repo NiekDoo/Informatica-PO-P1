@@ -1,5 +1,9 @@
 <html>
     <header>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="widt=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <title>Aanmeldingen</title>
 
     </header>
     <body>
@@ -21,7 +25,6 @@
         if ($conn->connect_error) {
             die("Connectie mislukt: " . $conn->connect_error);
         }
-        echo "Connectie gemaakt";
 
 
       // Formulier ontvangen
@@ -43,7 +46,7 @@
         
         $naam = $_POST["naam"]; 
         $email = $_POST["email"]; 
-        $aanwezig = $_POST["aanwezig"]; 
+        // $aanwezig wordt hierboven al toegewezen
         $aantal = $_POST["aantal"]; 
         
         $stmt->execute();
