@@ -15,8 +15,8 @@
             <th>Aantal</th>
             <th>Acties</th>
           </tr>
-          <form action="zoekenresultaat.php" method="POST">
-	          <input type="text" name="query" />
+          <form class="form-group" action="zoekenresultaat.php" method="POST">
+	          <input class="form-control" type="text" name="query" />
           	<input type="submit" value="Zoeken" />
           </form>
 
@@ -46,7 +46,12 @@
                 if ($result->num_rows > 0) {
                   // output data of each row
                   while($row = $result->fetch_assoc()) {
-                    echo "<tr><td>" . $row["naam"]. "</td><td>" . $row["email"] . "</td><td>" . $row["aanwezig"] . "</td><td>" . $row["aantal"] . "</td>" . "<td><a href='delete.php?id=".$row['email'].">Delete</a></td>" . "<br>";
+                    echo "<tr><td>" . $row["naam"]. "</td>
+                    <td>" . $row["email"] . "</td>
+                    <td>" . $row["aanwezig"] . "</td>
+                    <td>" . $row["aantal"] . "</td>" . 
+                    "<td><a href='delete.php?id=".$row['email']."'>verwijderen</a></td>" . 
+                    "<br>";
                   }
                 } else {
                   echo "0 results";
