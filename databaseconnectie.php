@@ -1,4 +1,4 @@
-  <?php
+<?php
 // Declareer variabelen
               $servername = "localhost";
               $username = "root";
