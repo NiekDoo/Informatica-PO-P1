@@ -2,9 +2,15 @@ a {
     color: black;
 }
 
+body {
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+}
+/*
 h1 {
     padding: 1%;
 }
+*/
 
 input {
     margin: 4px;
@@ -19,6 +25,6 @@ input {
 }
 
 #aanmelden {
-    right: 0px;
+    right: 5px;
     position:absolute;
 }
