@@ -7,7 +7,10 @@
     <title>Aanmeldingen</title>
   </head>
   <body>
-  <table class="table table-striped table-bordered">
+    <input class="btn btn-outline-primary" type="button" value="Nog een keer zoeken" onClick="document.location.href='/index.php'" />
+    <table class="table table-striped table-bordered">
+    <br>
+    <br>
           <tr>
             <th>Naam</th>
             <th>Email</th>
@@ -35,31 +38,59 @@
         
         
           $raw_results = mysql_query("SELECT * FROM aanmeldingen WHERE (naam LIKE '%".$query."%') OR (email LIKE '%".$query."%') OR (aanwezig LIKE '%".$query."%') OR (aantal LIKE '%".$query."%') ");
-
           echo $raw_results; 
           echo "Hi"; 
-
           */
 
 
           /*
           $stmt = $conn->prepare("SELECT * FROM aanmelding WHERE (naam LIKE '%`.$query.`%') OR (email LIKE '%`.$query.`%') OR (aanwezig LIKE '%`.$query.`%') OR (aantal LIKE '%`.$query.`%') ");
-
               // hier ga je pas de variabelen toewijzen en de query uitvoeren, dat kan je meer keren doen.
               
               
               $stmt->execute();
-
               echo $stmt; 
-
               $stmt->close(); 
           */
 
 
           // Laat tabel zien
-          $sql = "SELECT naam, email, aanwezig, aantal FROM aanmelding WHERE (naam LIKE '%".$query."%') OR (email LIKE '%".$query."%') OR (aanwezig LIKE '%".$query."%') OR (aantal LIKE '%".$query."%') ";
+          //$sql = "SELECT naam, email, aanwezig, aantal FROM aanmelding WHERE (naam LIKE '%".$query."%') OR (email LIKE '%".$query."%') OR (aanwezig LIKE '%".$query."%') OR (aantal LIKE '%".$query."%') ";
+
+          //$stmt = $conn->prepare("INSERT INTO aanmelding (naam, email, aanwezig, aantal) VALUES (?, ?, ?, ?)");
+          //$stmt -> bind_param("ssss", $naam, $email, $aanwezig, $aantal);
+
+
+
+
+          $sql = "SELECT naam, email, aanwezig, aantal FROM aanmelding WHERE naam LIKE CONCAT('%',?,'%') OR email LIKE CONCAT('%',?,'%')  OR aanwezig LIKE CONCAT('%',?,'%') OR aantal LIKE CONCAT('%',?,'%')";
+          $stmt = $conn->prepare($sql);
+          $stmt -> bind_param("ssss", $naam, $email, $aanwezig, $aanwezig);
           
-          $result = $conn->query($sql);
+          // hier ga je pas de variabelen toewijzen en de query uitvoeren, dat kan je meer keren doen.
+          
+          $naam = $query; 
+          $email = $query;
+          $aanwezig = $query;
+          $aantal = $query;
+          
+          $stmt->execute();
+          $result = $stmt->get_result(); 
+
+          $stmt->close(); 
+
+          /*
+          $sql = "SELECT * FROM users WHERE id=?"; // SQL with parameters
+          $stmt = $conn->prepare($sql); 
+          $stmt->bind_param("i", $id);
+          $stmt->execute();
+          $result = $stmt->get_result(); // get the mysqli result
+          $user = $result->fetch_assoc(); // fetch data   
+          */
+
+
+
+          //$result = $conn->query($stmt);
 
           if ($result->num_rows > 0) {
             // output data of each row
@@ -72,7 +103,7 @@
                     "<br>";
             }
           } else {
-            echo "Er zijn geen overeenkomsten gevonden";
+            echo "<p>Er zijn geen overeenkomsten gevonden<p>";
           }
 
 
@@ -96,7 +127,7 @@
 
       ?>
     </table>
-    <input type="button" value="Nog een keer zoeken" onClick="document.location.href='/index.php'" />
+    
 
   </body>
 </html>
