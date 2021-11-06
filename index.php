@@ -8,15 +8,19 @@
         <title>Aanmeldingen</title>
       <head>
       <body>
-        <h1>Inschrijvingen</h1>
+        <h1>Aanmeldingen</h1>
+        <div class="zoeken-nieuweaanmelding">
 
         <form class="form-group" action="zoekenresultaat.php" method="POST">
-          <input class="zoeken" type="text" name="query" />
-          <input type="submit" value="Zoeken" />
+          <div class="zoekendiv">
+            <input class="zoeken" type="text" name="query" />
+            <input type="submit" class="btn btn-outline-primary" value="Zoeken" />
+          </div>
         </form>
+        </div>
 
         <input type="button" class="btn btn-outline-primary" value="Nieuwe aanmelding" onClick="document.location.href='/aanmelden.php'" id="aanmelden"/>
-        <br>
+        
         <table class="table table-striped table-bordered">
           <tr>
             <th>Naam</th>
@@ -26,8 +30,6 @@
             <th>Acties</th>
           </tr>
 
-
-
           <?php
               require('databaseconnectie.php');
 
@@ -35,15 +37,6 @@
               if ($conn->connect_error) {
                 die("Connectie mislukt: " . $conn->connect_error);
               }
-              
-
-
-             
-              
-              //query voor verwijderen
-              //if ()
-              //$verwijder = "DELETE * FROM aanmelding WHERE $row = $row["button"] "
-
 
 
               // Laat tabel zien
@@ -51,7 +44,7 @@
               $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
-                  // output data of each row
+                  // Iedere keer een nieuwe rij maken
                   while($row = $result->fetch_assoc()) {
                     echo "<tr><td>" . $row["naam"]. "</td>
                     <td>" . $row["email"] . "</td>
@@ -67,11 +60,6 @@
               //Sluit verbinding
               $conn->close();
               ?>
-
         </table>
-
-
-        
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
       </body>
     </html>
