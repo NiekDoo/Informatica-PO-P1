@@ -6,11 +6,10 @@ body {
     margin-left: 0.5%;
     margin-right: 0.5%;
 }
-/*
+
 h1 {
-    padding: 1%;
+    margin-top: 1%;
 }
-*/
 
 input {
     margin: 4px;
@@ -21,10 +20,26 @@ input {
 }
 
 .formgroup {
-    margin: 1%;
+    margin: 0%;
+}
+
+.zoeken-nieuweaanmelding {
+    display: inline-block;
 }
 
 #aanmelden {
     right: 5px;
     position:absolute;
+}
+
+.btn {
+    margin-left: px;
+}
+
+.formtext {
+    margin-left: 4;
+}
+
+.zoekendiv {
+    vertical-align: center;
 }
