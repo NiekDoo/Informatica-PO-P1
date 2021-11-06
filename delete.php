@@ -1,20 +1,24 @@
 <?php
 require('databaseconnectie.php');
 
-$id = "'" . $_GET['id'] . "'";
+$id = $_GET['id'];
 
-$sql = "DELETE FROM aanmelding WHERE email=$id"; 
 
-// Uitvoeren van de query
-if (mysqli_query($conn, $sql)) {
-    mysqli_close($conn);
-    echo "Succesvol verwijderd. ";
-    header('Location: index.php');
-    exit;
-} else {
-    echo "Er is iets misgegaan, probeer het opnieuw. " . $conn->error;
-}
+// Delete query voorbereiden
+$stmt = $conn->prepare("DELETE FROM aanmelding WHERE email=?");
+        $stmt -> bind_param("s", $email);
+        
+        // Variabelen toewijzen en uitvoeren
+        
+        $email = $id;
+    
+        $stmt->execute();
+
+        $stmt->close(); 
 
 mysqli_close($conn);
+
+// Terug naar index.php
+header('location: index.php')
 
 ?>
