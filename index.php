@@ -1,4 +1,4 @@
-    <!doctype html>
+<!doctype html>
     <html>
       <head>
         <meta charset="UTF-8">
@@ -8,15 +8,15 @@
         <title>Aanmeldingen</title>
       <head>
       <body>
-        <h1>Aanmelden</h1>
+        <h1>Inschrijvingen</h1>
 
         <form class="form-group" action="zoekenresultaat.php" method="POST">
-          <input class="form-control" type="text" name="query" />
+          <input class="zoeken" type="text" name="query" />
           <input type="submit" value="Zoeken" />
         </form>
 
         <input type="button" class="btn btn-outline-primary" value="Nieuwe aanmelding" onClick="document.location.href='/aanmelden.php'" id="aanmelden"/>
-        
+        <br>
         <table class="table table-striped table-bordered">
           <tr>
             <th>Naam</th>
@@ -61,7 +61,7 @@
                     "<br>";
                   }
                 } else {
-                  echo "0 results";
+                  echo "<p>Er zijn geen overeenkomsten gevonden. </p>";
                 }
 
               //Sluit verbinding
