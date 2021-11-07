@@ -1,5 +1,5 @@
 <?php require("top.php") ?>
-<main style="display: block">
+<main>
     <!-- Zoekbalk -->
     <div class="zoeken-nieuweaanmelding">
         <form class="form-group" action="zoekenresultaat.php" method="POST">
@@ -11,7 +11,7 @@
     </div>
     
     <!-- Tabel die de aanmeldingen in de database weergeeft -->
-    <table class="table table-striped table-bordered">
+    <table class="table table-striped table-bordered" id="tabel">
         <tr>
             <th>Naam</th>
             <th>Email</th>
