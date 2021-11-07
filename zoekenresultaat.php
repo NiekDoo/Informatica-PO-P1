@@ -1,13 +1,13 @@
 <?php require("top.php") ?>
 
-<h1>Zoekresultaten</h1>
+
 
 <!-- Terug naar het startscherm/index.php -->
-<input class="btn btn-outline-primary" id="nogeenkeerzoeken" type="button" value="Nog een keer zoeken"
+<input class="btn btn-outline-primary" id="nogeenkeerzoeken" type="button" value="Terug"
        onClick="document.location.href='/index.php'"/>
 
 <!-- Tabel met de verzochte aanmeldingen uit de database -->
-<table class="table table-striped table-bordered">
+<table class="table table-striped table-bordered" id="tabel">
     <tr>
         <th>Naam</th>
         <th>Email</th>
@@ -61,7 +61,7 @@
         }
 
     } else {
-        echo "error, probeer het opnieuw";
+        echo "<p>error, probeer het opnieuw</p>";
     }
 
     // Sluit verbinding
